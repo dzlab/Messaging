@@ -4,29 +4,31 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.dzlab.messaging.R;
-import com.dzlab.messaging.data.Sms;
-import com.dzlab.messaging.util.SmsFactory;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnItemClickListener {
 
-	ListView list;
+	private ListView list;
+	private ContactAdapter adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		adapter = new ContactAdapter(getApplicationContext());
 		list = (ListView) findViewById(R.id.list);
+		list.setAdapter(adapter);
+		list.setOnItemClickListener(this);
 		
-		SmsFactory.getSent(MainActivity.this);
+		//SmsFactory.getSent(MainActivity.this);
 		
-		SmsFactory.query(MainActivity.this, Sms.SENT);
-		SmsFactory.query(MainActivity.this, Sms.RECEIVED);
+		//SmsFactory.query(MainActivity.this, Sms.SENT);
+		//SmsFactory.query(MainActivity.this, Sms.RECEIVED);
 		//mSmsHelper.readSMS(SmsFactory.CONVERSATIONS);
 		/*
 	    ((Button) findViewById(R.id.btnSendLongSms)).setOnClickListener(new OnClickListener() {			
@@ -51,6 +53,12 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		// TODO show conversations with the selected contacts
+		
 	}
 
 }

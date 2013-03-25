@@ -1,13 +1,15 @@
 package com.dzlab.messaging.ui;
 
-import com.dzlab.messaging.data.ContactsCache;
-import com.dzlab.messaging.util.ContactFactory;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import com.dzlab.messaging.R;
+import com.dzlab.messaging.data.Contact;
+import com.dzlab.messaging.data.ContactsCache;
 
 public class ContactAdapter extends BaseAdapter {
 
@@ -38,8 +40,22 @@ public class ContactAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		return null;
+		ViewHolder holder;
+		if (convertView == null) {
+			convertView = inflater.inflate(R.layout.contacts_item, null);
+			holder = new ViewHolder();
+			holder.name = (TextView) convertView.findViewById((R.id.contact_name));
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder) convertView.getTag();
+		}
+		Contact c = (Contact) getItem(position);
+		holder.name.setText(c.getName());
+
+		return convertView;
 	}
 
+	public static class ViewHolder {
+		TextView name;
+	}
 }

@@ -33,7 +33,7 @@ public class ContactFactory {
 				Contact.setNumber(findPhoneById(context, ID));
 			}
 			if(Contact.getName() != null)
-				contacts.put(Contact.getName(), Contact);
+				contacts.add(Contact);
 		}	
 		cursor.close();	
 		Log.v("ContactProvider", "Number of contacts: " + contacts.count());		

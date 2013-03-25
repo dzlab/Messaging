@@ -1,6 +1,8 @@
 package com.dzlab.messaging.data;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 import android.content.Context;
 
@@ -10,10 +12,10 @@ import com.dzlab.messaging.util.ContactFactory;
 public class ContactsCache {
 	
 	private static ContactsCache sContactCache;
-	private static HashMap<String, Contact> map;
+	private static List<Contact> list;
 	
 	private ContactsCache() {
-		map = new HashMap<String, Contact>();
+		list = new ArrayList<Contact>();
 	}
 	
 	public static ContactsCache getInstance() {
@@ -27,20 +29,19 @@ public class ContactsCache {
 		return getInstance();
 	}
 	
-	public void put(String name, Contact contact) {
-		map.put(name, contact);
+	public void add(Contact contact) {
+		list.add(contact);
 	}
 	
 	public Contact get(String name) {
-		return map.get(name);
-	}
-	
-	public Contact get(int position) {
-		
 		return null;
 	}
 	
+	public Contact get(int position) {	 
+		return list.get(position);
+	}
+	
 	public int count() {
-		return map.size();
+		return list.size();
 	}
 }
