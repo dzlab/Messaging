@@ -20,21 +20,23 @@ public class SmsFactory {
 	}
 	
 	public static List<Sms> getSent(Context context) {
-		query(context, Sms.SENT);
-		return null;
+		return query(context, Sms.TABLE_SENT);		
+	}
+	public static List<Sms> getReceived(Context context) {
+		return query(context, Sms.TABLE_RECEIVED);		
 	}
 	public static void startAsyncQuery(Context context) {
-		query(context, Sms.SENT);
-		query(context, Sms.RECEIVED);		
+		query(context, Sms.TABLE_SENT);
+		query(context, Sms.TABLE_RECEIVED);		
 	}
 	
-	public static void query(Context context, String uriString) {
+	public static List<Sms> query(Context context, String uriString) {
 		List<Sms> messages = new ArrayList<Sms>();
 		Uri uriSMSURI = Uri.parse(uriString);	      
 		Cursor cur = context.getContentResolver().query(uriSMSURI, null, null, null,null);
 		System.out.println(uriString+": "+"Number of messages: " + cur.getCount());
 		int columns = cur.getColumnCount();
-	    //String sms = "";
+	    
 	    while (cur.moveToNext()) {	
 	    	Sms s = new Sms();
 	    	s.threadId = cur.getLong(cur.getColumnIndex(Sms.COLUMN_THREAD_ID));
@@ -45,10 +47,10 @@ public class SmsFactory {
 	    	s.wasRead = read || seen;
 	    	s.body = cur.getString(cur.getColumnIndex(Sms.COLUMN_BODY));
 	    	int error_code = cur.getInt(cur.getColumnIndex(Sms.COLUMN_ERROR_CODE));
-	    	s.hasError = (error_code != 0);
-	    	System.out.println(uriString+": "+s);
+	    	s.hasError = (error_code != 0);	    	
 	    	messages.add(s);	    	   	
-	    }	    
+	    }
+	    return messages;
 	}
 	
 	/**send a short SMS message with a maximum length of 160 characters*/
@@ -70,7 +72,7 @@ public class SmsFactory {
 		 ContentValues values = new ContentValues(); 		 
 		 values.put("address", address); 
 		 values.put("body", body);
-		 mContext.getContentResolver().insert(Uri.parse(Sms.SENT), values);
+		 mContext.getContentResolver().insert(Uri.parse(Sms.TABLE_SENT), values);
 	}
 	
 }

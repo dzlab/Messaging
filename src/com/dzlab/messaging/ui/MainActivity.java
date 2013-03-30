@@ -13,14 +13,16 @@ import com.dzlab.messaging.R;
 public class MainActivity extends Activity implements OnItemClickListener {
 
 	private ListView list;
-	private ContactAdapter adapter;
+	//private ContactAdapter adapter;
+	private ConversationAdapter adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		adapter = new ContactAdapter(getApplicationContext());
+		//adapter = new ContactAdapter(getApplicationContext());
+		adapter = new ConversationAdapter(getApplicationContext());
 		list = (ListView) findViewById(R.id.list);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(this);

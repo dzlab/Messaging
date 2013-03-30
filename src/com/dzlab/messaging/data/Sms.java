@@ -2,8 +2,8 @@ package com.dzlab.messaging.data;
 
 public class Sms {
 	
-	public static String RECEIVED  = "content://sms/inbox";	
-	public static String SENT      = "content://sms/sent";
+	public static String TABLE_RECEIVED= "content://sms/inbox";	
+	public static String TABLE_SENT    = "content://sms/sent";
 	public static String CONVERSATIONS = "content://sms/conversations";
 	
 	public long threadId;
@@ -12,6 +12,8 @@ public class Sms {
 	public boolean wasRead;
 	public String body;
 	public boolean hasError;
+	
+	//public boolean isSender;
 
 	public String toString() {
 		return "{'threadId':"+threadId+", 'address':'"+address+"', 'date':"+date+", 'wasRead':"+wasRead+", 'body':'"+body+"', 'hasError':"+hasError+"}";

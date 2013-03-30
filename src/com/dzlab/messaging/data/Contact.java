@@ -33,5 +33,12 @@ public class Contact {
 	public String getName() {
 		return name;
 	}
+	public String getNumber() {
+		return phone;
+	}
 
+	@Override
+	public String toString() {
+		return "Contact [_id=" + _id + ", name=" + name + ", phone=" + phone + ", birthday=" + birthday + "]";
+	}
 }
